@@ -1,0 +1,18 @@
+{
+    "title": "干货笔记",
+    "description": "日常、笔记",
+    "author": "zhangpk",
+    "plugins": [
+
+        "lightbox",
+        "-lunr", "-search","search-pro",
+        "code",
+        "hide-element"
+    ],
+    "pluginsConfig": {
+        "hide-element": {
+            "elements": [".gitbook-link"]
+        }
+    },
+    "language": "zh-hans"
+}
