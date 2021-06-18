@@ -86,8 +86,6 @@ gitbook的插件前缀都是：npm install gitbook-plugin-xxx，这种方式来�
 - lightbox
 ### 隐藏的元素
 - hide-element
-### 标签
-
 
 
 ## 导出
