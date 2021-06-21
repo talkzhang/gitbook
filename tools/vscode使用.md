@@ -1,4 +1,4 @@
-# markdown 如何代码补全
+# markdown如何代码补全
 
 在主界面中，文件 >>首选项>>用户片段，选择markdown语言，然后json文件即可。
 
