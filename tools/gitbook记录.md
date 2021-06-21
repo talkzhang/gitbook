@@ -78,15 +78,10 @@ gitbook使用插件，需要在当前工作的目录下创建book.json文件，�
 
 gitbook的插件前缀都是：npm install gitbook-plugin-xxx，这种方式来完成安装，示例：
 
-### 中文搜索
-- search-pro 需要去除自带的搜索 "-lunr", "-search"
-### 左侧目录可折叠
-- chapter-fold
-### 图片弹窗
-- lightbox
-### 隐藏的元素
-- hide-element
-
+- 中文搜索 search-pro 需要去除自带的搜索 "-lunr", "-search"
+- 左侧目录可折叠 chapter-fold
+- 图片弹窗 lightbox
+- 隐藏的元素 hide-element
 
 ## 导出
 
@@ -95,3 +90,13 @@ gitbook的插件前缀都是：npm install gitbook-plugin-xxx，这种方式来�
 calibre 官网: https://calibre-ebook.com/
 
 windowns下载完直接安装后，会自动在系统环境变量中添加该路径，所以理论上安装完毕之后就可以进行导出操作。
+
+## 通过gitbook.com部署
+
+大概流程如下：
+1. 访问gitbook.com
+2. 通过github登录
+3. 首次登录需要创建Org，在Org内创建space
+4. 进入spance，选择integration内关联github，选择指定仓库并选择通过master分支实时更新
+
+详情见连接：https://www.jianshu.com/p/f2cc70a73a90，该链接版本过旧，不过有参考价值。
