@@ -82,6 +82,7 @@ gitbook的插件前缀都是：npm install gitbook-plugin-xxx，这种方式来�
 - 左侧目录可折叠 chapter-fold
 - 图片弹窗 lightbox
 - 隐藏的元素 hide-element
+- 页内目录 anchor-navigation-ex
 
 ## 导出
 
@@ -90,6 +91,8 @@ gitbook的插件前缀都是：npm install gitbook-plugin-xxx，这种方式来�
 calibre 官网: https://calibre-ebook.com/
 
 windowns下载完直接安装后，会自动在系统环境变量中添加该路径，所以理论上安装完毕之后就可以进行导出操作。
+
+# 部署
 
 ## 通过gitbook.com部署
 
@@ -100,3 +103,31 @@ windowns下载完直接安装后，会自动在系统环境变量中添加该路
 4. 进入spance，选择integration内关联github，选择指定仓库并选择通过master分支实时更新
 
 详情见连接：https://www.jianshu.com/p/f2cc70a73a90，该链接版本过旧，不过有参考价值。
+
+## 部署到github pages
+
+1. 通过github创建repository
+2. 将本地gitbook源代码可以提交至该仓库
+3. 创建新分支gh-pages(github默认发布git page使用该分支构建)
+4. 将_book文件夹下所有内容提交至gh-pages分支即可，为了便于操作，整理脚本如下可日后灵活参考：
+
+```bash
+cd gitbook/
+#git checkout -b gh-pages
+
+if [ -d "E:/plan/gitbook/.gitignore" ]; then
+git rm .gitignore
+echo 删除ignore
+fi
+git rm -rf *
+echo 删除当前所有文本
+cp -r E:/private/_book/* .
+echo copy from _book
+git add .
+git commit -m "pushlish to gh-pages"
+git push origin --delete gh-pages
+echo 删除远程分支
+git push origin gh-pages
+
+exec /bin/bash
+```
