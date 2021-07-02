@@ -13,7 +13,7 @@ selenium 是一个web应用测试工具，能够真正的模拟人去操作浏�
 
 ![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/chromevier-version.png)
 
-如果chrome版本是92的版本，可以直接通过网盘下载驱动：
+如果chrome版本是91.0.4472的版本，可以直接通过网盘下载驱动：
 
 链接：https://pan.baidu.com/s/102gIrR6IvjGwrw4fqvp69Q 
 提取码：1ucb

@@ -1,14 +1,14 @@
-ÈçºÎÍ¨¹ýjava¶ÁÈ¡SpreadsheetMLÀàÐÍexcel£¨xlsÎÄ¼þ£©
+å¦‚ä½•é€šè¿‡javaè¯»å–SpreadsheetMLç±»åž‹excelï¼ˆxlsæ–‡ä»¶ï¼‰
 
-## Ê²Ã´ÊÇSpreadsheetML¸ñÊ½µÄexcel
+## ä»€ä¹ˆæ˜¯SpreadsheetMLæ ¼å¼çš„excel
 
-×î½ü¹«Ë¾ÒµÎñÐèÒª£¬excel½âÎö³öÏÖÍ¨¹ýpoiµÄworkbook½âÎöÊ§°ÜµÄÎÊÌâ£¬ÎÄ¼þ±¾ÉíÃ»ÓÐÈÎºÎËð»µ£¬Ææ¹ÖµÄÊÇ£¬Í¨¹ý¼ÇÊÂ±¾ÎÄ±¾±à¼­Æ÷¶¼¿ÉÒÔÖ±½Ó½âÎö³É¾ßÓÐxml±êÇ©µÄÎÄ±¾ÐÅÏ¢£¬Ò²²»Çå³þÕâÊÇÊ²Ã´£¬´óÖÂ½âÎö³öÀ´ÊÇÕâÑùµÄ£º
+æœ€è¿‘å…¬å¸ä¸šåŠ¡éœ€è¦ï¼Œexcelè§£æžå‡ºçŽ°é€šè¿‡poiçš„workbookè§£æžå¤±è´¥çš„é—®é¢˜ï¼Œæ–‡ä»¶æœ¬èº«æ²¡æœ‰ä»»ä½•æŸåï¼Œå¥‡æ€ªçš„æ˜¯ï¼Œé€šè¿‡è®°äº‹æœ¬æ–‡æœ¬ç¼–è¾‘å™¨éƒ½å¯ä»¥ç›´æŽ¥è§£æžæˆå…·æœ‰xmlæ ‡ç­¾çš„æ–‡æœ¬ä¿¡æ¯ï¼Œä¹Ÿä¸æ¸…æ¥šè¿™æ˜¯ä»€ä¹ˆï¼Œå¤§è‡´è§£æžå‡ºæ¥æ˜¯è¿™æ ·çš„ï¼š
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <?mso-application progid="Excel.Sheet"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40">
-  <Worksheet ss:Name="±¨±íxxx">
+  <Worksheet ss:Name="æŠ¥è¡¨xxx">
     <Table ss:ExpandedColumnCount="100" ss:ExpandedRowCount="1000000" ss:DefaultColumnWidth="54.0" ss:DefaultRowHeight="13.5">
  <Row>
   <Cell>
@@ -20,28 +20,28 @@
 </Workbook>
 ```
 
-ÓÐµããÂ±Æ£¬Ã»ÓÐÓöµ½¹ýÕâÖÖÆæÝâÎÄ¼þ°¡£¬±ü×Å´æÔÚ¼´ºÏÀíµÄÐÅÄî£¬¿ªÊ¼·è¿ñgoogle£¬×îºóÍ¨¹ýÕâÆª£º[Ô­ÎÄµãÎÒ](https://www.cnblogs.com/sungcong/archive/2013/02/19/2916611.html)£¬ÖÕÓÚÁË½âÕâÖÖexcelÊÊÓÃÓÚÊ²Ã´»·¾³£¬Ô­À´ÊÇÓÃÓÚÍøÒ³ÄÚÇ¶Ì×¿ÉÒÔ´ò¿ªÖ±½ÓÔÄ¶ÁÀàÐÍµÄexcel£¬¿ÉÒÔ½ÐËü`SpreadsheetML`¸ñÊ½µÄexcel¡£
+æœ‰ç‚¹æ‡µé€¼ï¼Œæ²¡æœ‰é‡åˆ°è¿‡è¿™ç§å¥‡è‘©æ–‡ä»¶å•Šï¼Œç§‰ç€å­˜åœ¨å³åˆç†çš„ä¿¡å¿µï¼Œå¼€å§‹ç–¯ç‹‚googleï¼Œæœ€åŽé€šè¿‡è¿™ç¯‡ï¼š[åŽŸæ–‡ç‚¹æˆ‘](https://www.cnblogs.com/sungcong/archive/2013/02/19/2916611.html)ï¼Œç»ˆäºŽäº†è§£è¿™ç§excelé€‚ç”¨äºŽä»€ä¹ˆçŽ¯å¢ƒï¼ŒåŽŸæ¥æ˜¯ç”¨äºŽç½‘é¡µå†…åµŒå¥—å¯ä»¥æ‰“å¼€ç›´æŽ¥é˜…è¯»ç±»åž‹çš„excelï¼Œå¯ä»¥å«å®ƒ`SpreadsheetML`æ ¼å¼çš„excelã€‚
 
-## ¶ÔSpreadsheetML¸ñÊ½µÄexcel½øÐÐ¶ÁÐ´
+## å¯¹SpreadsheetMLæ ¼å¼çš„excelè¿›è¡Œè¯»å†™
 
-¸ãÁË°ëÌì£¬ÖÕÓÚÖªµÀÕâÖÖÀàÐÍµÄÎÄ¼þÊÇ¸ÉÊ²Ã´ÓÃ£¬×îÖØÒªµÄÊÇÖªµÀËü½ÐÊ²Ã´Ãû×ÖÁË£¬½ÓÏÂÀ´Ïà¶Ô¾Í¼òµ¥ÁË£¬Ë³×ÅÍùÏÂÕÒ£¬·¢ÏÖjavaÓïÑÔ²Ù×÷SpreadsheetMLÀàÐÍµÄÎÄ¼þ£¬ÓÐ×¨ÃÅ²Ù×÷¹¤¾ßÀà£¬ÃûÎªXelemµÄ¿â¿ÉÒÔ´¦ÀíËü£¬µ«ÊÇ£¬Èç¹ûÄãµÄjavaÏîÄ¿ÊÇÊ¹ÓÃmaven²Ö¿âÀ´¹ÜÀíÒÀÀµ£¬ÊÇÃ»ÓÐÖ¸¶¨ÒÀÀµ¿âÔÚmavenÎ¬»¤µÄ¡£
+æžäº†åŠå¤©ï¼Œç»ˆäºŽçŸ¥é“è¿™ç§ç±»åž‹çš„æ–‡ä»¶æ˜¯å¹²ä»€ä¹ˆç”¨ï¼Œæœ€é‡è¦çš„æ˜¯çŸ¥é“å®ƒå«ä»€ä¹ˆåå­—äº†ï¼ŒæŽ¥ä¸‹æ¥ç›¸å¯¹å°±ç®€å•äº†ï¼Œé¡ºç€å¾€ä¸‹æ‰¾ï¼Œå‘çŽ°javaè¯­è¨€æ“ä½œSpreadsheetMLç±»åž‹çš„æ–‡ä»¶ï¼Œæœ‰ä¸“é—¨æ“ä½œå·¥å…·ç±»ï¼Œåä¸ºXelemçš„åº“å¯ä»¥å¤„ç†å®ƒï¼Œä½†æ˜¯ï¼Œå¦‚æžœä½ çš„javaé¡¹ç›®æ˜¯ä½¿ç”¨mavenä»“åº“æ¥ç®¡ç†ä¾èµ–ï¼Œæ˜¯æ²¡æœ‰æŒ‡å®šä¾èµ–åº“åœ¨mavenç»´æŠ¤çš„ã€‚
 
 ![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16100861032214.png)
 
-²»¹ýÕâ¶¼²»ÊÇÊ²Ã´ÎÊÌâ£¬¿ÉÒÔÕÒµ½¹ÙÍø£¬¹ÙÍøÓÐÒÀÀµÏÂÔØµÄ£¬²»¹ý¿ÉÄÜÏÂÔØÃ»ÓÐÄÇÃ´¿ì¡£
+ä¸è¿‡è¿™éƒ½ä¸æ˜¯ä»€ä¹ˆé—®é¢˜ï¼Œå¯ä»¥æ‰¾åˆ°å®˜ç½‘ï¼Œå®˜ç½‘æœ‰ä¾èµ–ä¸‹è½½çš„ï¼Œä¸è¿‡å¯èƒ½ä¸‹è½½æ²¡æœ‰é‚£ä¹ˆå¿«ã€‚
 
-¹ÙÍøÁ´½Ó£º(http://xelem.sourceforge.net/)[http://xelem.sourceforge.net/]£¬Èç¹ûÄã´Ó¹ÙÍøÉÏÏÂÔØ£¬Ê×ÏÈÏÂÔØÏÂÀ´µÄÊÇzipÑ¹Ëõ°ü£¬½âÑ¹ºó½øÈëÎÄ¼þ¼Ð¿ÉÒÔ¿´µ½Á½¸öjar°ü£¬xelem.jar£¬xelem_src.3.1.jar£¬¶ÔÎÒÄ¿Ç°À´Ëµ£¬Ö»ÐèÒª°²×°xlem.jar¾Í¿ÉÒÔÂú×ãÎÒµÄÐèÒª£¬¾ÍÊÇÍ¨¹ýjava½øÐÐ¼òµ¥µÄ¶ÁÐ´¡£
+å®˜ç½‘é“¾æŽ¥ï¼š(http://xelem.sourceforge.net/)[http://xelem.sourceforge.net/]ï¼Œå¦‚æžœä½ ä»Žå®˜ç½‘ä¸Šä¸‹è½½ï¼Œé¦–å…ˆä¸‹è½½ä¸‹æ¥çš„æ˜¯zipåŽ‹ç¼©åŒ…ï¼Œè§£åŽ‹åŽè¿›å…¥æ–‡ä»¶å¤¹å¯ä»¥çœ‹åˆ°ä¸¤ä¸ªjaråŒ…ï¼Œxelem.jarï¼Œxelem_src.3.1.jarï¼Œå¯¹æˆ‘ç›®å‰æ¥è¯´ï¼Œåªéœ€è¦å®‰è£…xlem.jarå°±å¯ä»¥æ»¡è¶³æˆ‘çš„éœ€è¦ï¼Œå°±æ˜¯é€šè¿‡javaè¿›è¡Œç®€å•çš„è¯»å†™ã€‚
 
-ÎÒ½«ÎÒÏÂÔØºÃµÄÒÀÀµÉÏ´«µ½ÁË°Ù¶ÈÍøÅÌ£¬·½±ãÈÕºó½øÐÐÏÂÔØ¡£
+æˆ‘å°†æˆ‘ä¸‹è½½å¥½çš„ä¾èµ–ä¸Šä¼ åˆ°äº†ç™¾åº¦ç½‘ç›˜ï¼Œæ–¹ä¾¿æ—¥åŽè¿›è¡Œä¸‹è½½ã€‚
 
-Á´½Ó: https://pan.baidu.com/s/1tmai5qXoJXA2gsz_PwN5jA ÌáÈ¡Âë: zjag 
+é“¾æŽ¥: https://pan.baidu.com/s/1tmai5qXoJXA2gsz_PwN5jA æå–ç : zjag 
 
-±¾µØ¶Ôxelem.jarÖ´ÐÐmvn install£¬ÒÔÏÂÊÇ¼òµ¥Ê¾Àý£º
+æœ¬åœ°å¯¹xelem.jaræ‰§è¡Œmvn installï¼Œä»¥ä¸‹æ˜¯ç®€å•ç¤ºä¾‹ï¼š
 ```
 mvn install:install-file -Dfile=xelem.jar -DgroupId=nl.fountain.xelem -DartifactId=sdk-202008122004 -Dversion=3.1.0 -Dpackaging=jar
 ```
 
-¹¤¾ßÀà´úÂëÊ¾Àý£º
+å·¥å…·ç±»ä»£ç ç¤ºä¾‹ï¼š
 
 ```java
 public class XelemExcelUtil {
@@ -50,7 +50,7 @@ public class XelemExcelUtil {
 
 
     /**
-     * ¶ÁÈ¡SpreadsheetMLÀàÐÍexcel
+     * è¯»å–SpreadsheetMLç±»åž‹excel
      *
      * @param in
      * @return
@@ -102,7 +102,7 @@ public class XelemExcelUtil {
             InputSource inputSource = new InputSource(is);
             workbook = excelReader.getWorkbook(inputSource);
         } catch (Exception e) {
-            throw new Exception("excelÎÞ·¨½âÎö»òÕßÎÄ¼þÁ÷´íÎó");
+            throw new Exception("excelæ— æ³•è§£æžæˆ–è€…æ–‡ä»¶æµé”™è¯¯");
         }
         List<String> sheetNameList = workbook.getSheetNames();
         Worksheet worksheet = workbook.getWorksheet(sheetNameList.get(0));
@@ -136,7 +136,7 @@ public class XelemExcelUtil {
                     }
                     cell.setData(value);
                 } catch (Exception e) {
-                    throw new Exception("excelÎÞ·¨½âÎö»òÕßÎÄ¼þÁ÷´íÎó");
+                    throw new Exception("excelæ— æ³•è§£æžæˆ–è€…æ–‡ä»¶æµé”™è¯¯");
                 }
             }
         }
@@ -164,4 +164,4 @@ public class XelemExcelUtil {
 }
 ```
 
-END£¬ÎÒÃÇÑ§Ï°Ö®ºó£¬¾­³£ÍÂ²Û´ó²¿·Ö¶«Î÷¼Ç²»×¡ÈÝÒ×ÒÅÍü£¬µ«ÊÇÍ¨¹ýÑ§Ï°ÎÒÃÇÄÜ×Ü½á³ö¸ü¸ßÐ§µÄ·½·¨À´½â¾öÎÊÌâ£¬Ëµ°×ÁËÈÎºÎÑ§Ï°¶¼ÊÇÔÚÑ§Ï°½â¾öÎÊÌâµÄ·½·¨¡£
+ENDï¼Œæˆ‘ä»¬å­¦ä¹ ä¹‹åŽï¼Œç»å¸¸åæ§½å¤§éƒ¨åˆ†ä¸œè¥¿è®°ä¸ä½å®¹æ˜“é—å¿˜ï¼Œä½†æ˜¯é€šè¿‡å­¦ä¹ æˆ‘ä»¬èƒ½æ€»ç»“å‡ºæ›´é«˜æ•ˆçš„æ–¹æ³•æ¥è§£å†³é—®é¢˜ï¼Œè¯´ç™½äº†ä»»ä½•å­¦ä¹ éƒ½æ˜¯åœ¨å­¦ä¹ è§£å†³é—®é¢˜çš„æ–¹æ³•ã€‚
