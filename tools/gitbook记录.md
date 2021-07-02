@@ -79,7 +79,7 @@ gitbook使用插件，需要在当前工作的目录下创建book.json文件，�
 gitbook的插件前缀都是：npm install gitbook-plugin-xxx，这种方式来完成安装，示例：
 
 - 中文搜索 search-pro 需要去除自带的搜索 "-lunr", "-search"
-- 左侧目录可折叠 chapter-fold
+- 左侧目录可折叠 expandable-chapters
 - 图片弹窗 lightbox
 - 隐藏的元素 hide-element
 - 页内目录 anchor-navigation-ex

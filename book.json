@@ -3,7 +3,7 @@
     "description": "日常、笔记",
     "author": "zhangpk",
     "plugins": [
-        "chapter-fold", 
+        "expandable-chapters",
         "lightbox",
         "-lunr", "-search","search-pro",
         "code",
