@@ -1,5 +1,3 @@
-天行健，君子以自强不息。地势坤，君子以厚德载物。
 
-满招损，谦受益。
 
-非知之艰，行之惟艰。
+![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/wawa.jpg)

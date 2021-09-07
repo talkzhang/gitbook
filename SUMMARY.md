@@ -1,38 +1,40 @@
 # Summary
 
 * [概念类](README.md)
-* [java]()
-    * [消息中间件]()
-    * [基础知识]()
-    * [jvm]()
-        * [内存模型](jvm/1内存模型.md)
-        * [虚拟机对象](jvm/2虚拟机对象.md)
-        * [垃圾收集算法](jvm/3垃圾收集算法.md)
-        * [垃圾收集器](jvm/4垃圾收集器.md)
-        * [如何排查项目中oom](jvm/OutOfMemory如何排查.md)
-* [容器]()
+* [java]
+    * [基础知识]
+        * [队列和栈](java/队列和栈.md)
+        * [多线程](java/多线程相关记录.md)
+        * [string](java/java中的string.md)
+        * [lambda使用](java/lambda使用.md)
+    * [jvm]
+        * [jvm基础](java/jvm/jvm基础.md)
+        * [oom如何排查](java/jvm/OutOfMemory如何排查.md)
+* [容器]
     * [docker入门](container/docker入门级笔记.md)
     * [k8s常用命令](container/command.md)
-* [python]()
+* [python]
     * [python的使用总结](python/Python的使用分享.md)
     * [python爬虫selenium](python/使用selenium.md)
-* [数据库]()
+    * [实现ocr](python/利用python实现图片ocr.md)
+* [数据库]
     * [redis](database/redis.md)
     * [mysql]()
     * [MongoDB]()
-* [框架]()
+* [框架]
     * [springboot]()
     * [springcloud]()
     * [dubbo](framework/dubbo_note.md)
-* [leetcode]()
-* [工具]()
+* [分布式]
+    * [cap理论](分布式/cap理论.md)
+* [工具]
   * [gitbook](tools/gitbook记录.md)
   * [vscode](tools/vscode使用.md)
   * [maven](tools/maven使用.md)
-* [其他]()
-    * [cap理论](other/cap理论.md)
+* [其他]
     * [javaagent了解](other/java%20agent探索.md)
     * [flyway在springboot2.x中使用](other/springboot2.x使用flyway.md)
     * [java读取SpreadsheetMl类型excel](other/如何通过java读取SpreadsheetML类型excel（xls文件）.md)
     * [一次spring事务失效笔记](other/事务笔记.md)
     * [excel日常操作](other/excel日常操作记录.md)
+* [leetcode]
