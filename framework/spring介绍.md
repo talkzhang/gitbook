@@ -163,6 +163,7 @@ autowried通过bytype完成注入，当某一接口有多个实现想要指定�
 4. @Autowired 将spring管理的bean注入
 5. @RequestParam 接受路径上问号之后的参数
 6. @PathVariable 接收路径模板参数
+7. @ControllerAdvice 标注是统一处理异常类，配合@ExceptionHandler(value = ParmsException.class)（用于方法上）实现全局异常处理
 
 # springboot
 
@@ -189,9 +190,281 @@ springboot admin 是针对actuator做的一套提供ui的高级封装版，它�
 - @ConditionalOnBean 当给定的在bean存在时,则实例化当前Bean。例如注入A需要操作B，则需要注入A时B先与A注入才对，这个朱姐就是用来解决这个问题。
 - @ConditionalOnClass // 当给定的类名在类路径上存在，则实例化当前Bean 
 - @ConditionalOnMissingClass // 当给定的类名在类路径上不存在，则实例化当前Bean
-  
+- @ImportResource 可以指定使用xml配置文件来加载bean。
+
+## @Import 注解的作用和原理
+
+该注解从字面上可以看出，使用该注解可以指定注入的bean类，除了这个，它另一个主要作用是，当注入类实现了ImportBeanDefinitionRegistrar、ImportSelector接口时，会进行单独处理，比如实现ImportSelector接口，会调用selectImports方法去里面做一些扩展集成，实现ImportBeanDefinitionRegistrar，则将该实现的类进行实例化之后放入configclass，之后一起当做bean注入到spring容器中，如果没有实现任何接口，那这个类就当做普通bean注入。
+
+详细可参考连接：[https://blog.csdn.net/gongsenlin341/article/details/113281596](https://blog.csdn.net/gongsenlin341/article/details/113281596)
+
 ## springboot 启动流程
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220114162820.png)
+运行一个springboot项目，只需要启动类上有注解，调用springboot内的一个静态run方法即可完成一个普通项目搭建。
 
-参考连接：cnblogs.com/theRhyme/p/11057233.html
+```java
+@SpringBootApplication
+public class DemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
+
+```
+
+既然如此，springboot启动大致包含两方面：
+
+1. @SpringBootApplication注解。
+2. SpringApplication.run方法。
+
+如图：
+
+![springboot启动简图](https://gitee.com/hongqigg/imgs-bed/raw/master/image/springboot%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E7%AE%80%E5%9B%BE.png)
+
+### @SpringBootApplication注解
+
+点进去该注解源码，可以发现该注解其实包含三个注解，分别是@SpringBootConfiguration、@EnableAutoConfiguration、@ComponentScan。
+
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(excludeFilters = {
+		@Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
+		@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
+public @interface SpringBootApplication {
+     // ....
+}
+```
+
+### @SpringBootConfiguration
+
+该注解其实就是@Configuration，即声明是一个spring配置类，spring会将该配置类下的bean示例通过ioc注入到上下文当中。
+
+### @ComponentScan
+
+该注解声明spring需要扫描哪个包下的文件去管理。
+
+### @EnableAutoConfiguration
+
+springboot神级注解，该注解表示开启自动配置管理，先看下代码：
+
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@AutoConfigurationPackage
+@Import(AutoConfigurationImportSelector.class)
+public @interface EnableAutoConfiguration {
+    
+}
+
+```
+这是一个复合注解，关键在@Import注解，它会加载AutoConfigurationImportSelector类，然后就会触发这个类的selectImports()方法，（上面有关于@Import注解的介绍）根据返回的String数组(配置类的Class的名称)加载配置类。然后看该类的selectImports方法：
+
+```java
+public String[] selectImports(AnnotationMetadata annotationMetadata) {
+		if (!isEnabled(annotationMetadata)) {
+			return NO_IMPORTS;
+		}
+		AutoConfigurationMetadata autoConfigurationMetadata = AutoConfigurationMetadataLoader
+				.loadMetadata(this.beanClassLoader);
+		AnnotationAttributes attributes = getAttributes(annotationMetadata);
+          // 重点看这里 加载后它是返回值
+		List<String> configurations = getCandidateConfigurations(annotationMetadata,
+				attributes);
+		configurations = removeDuplicates(configurations);
+		Set<String> exclusions = getExclusions(annotationMetadata, attributes);
+		checkExcludedClasses(configurations, exclusions);
+		configurations.removeAll(exclusions);
+		configurations = filter(configurations, autoConfigurationMetadata);
+		fireAutoConfigurationImportEvents(configurations, exclusions);
+		return StringUtils.toStringArray(configurations);
+	}
+
+     // 调用该方法获取加载bean路径
+     protected List<String> getCandidateConfigurations(AnnotationMetadata metadata,
+			AnnotationAttributes attributes) {
+		List<String> configurations = SpringFactoriesLoader.loadFactoryNames(
+				getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader());
+		Assert.notEmpty(configurations,
+				"No auto configuration classes found in META-INF/spring.factories. If you "
+						+ "are using a custom packaging, make sure that file is correct.");
+		return configurations;
+	}
+
+     // 该方法声明要获取factories文件中具体的配置
+     protected Class<?> getSpringFactoriesLoaderFactoryClass() {
+		return EnableAutoConfiguration.class;
+	}
+```
+
+该方法主要是从`spring.factories`文件获取spring配置类信息，根据这些配置类加载所需要加载的bean实例，按如上代码，会最终找到如下配置：
+
+![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220120182320.png)
+
+现在终于明白，为什么springboot官方starter和自定义starter的区别了，所谓官方，就是springboot通过@EnableAutoConfiguration默认加载的那些配置类，可以随便看一下，里面有redis等这些项目中常用的starter的配置类，都在这里配置后加载了，而自定义starter，需要自己写一个`spring.factories`文件，并在该文件中声明配置类路径即可完成自动配置。
+
+看到这里思考一个问题，如果你的项目中什么都没有用，那这里配置的这么多配置类找不到文件，不会报错吗？其实这里就用到spring中@Condition*相关的注解的，比如我们项目中没有用到rabbismq，但是根据如上看到通过自动加载，有该类的相关配置，看看spring是怎么做的：
+
+```java
+@Configuration
+@ConditionalOnClass({ RabbitTemplate.class, Channel.class })
+@EnableConfigurationProperties(RabbitProperties.class)
+@Import(RabbitAnnotationDrivenConfiguration.class)
+public class RabbitAutoConfiguration {
+     //...
+}
+```
+
+通过@ConditionalOnClass来判断你的项目中是否有依赖了Rabbit，如果没有那当前配置类就不会去加载任何东西，只有满足条件才会加载。
+
+关于注解就先告一段落，接着说下run方法
+
+### run方法
+
+虽然在启动时直接通过该方式（`SpringApplication.run(DemoApplication.class, args);`）调用完成，但其实run方法内部还是实例化SpringApplication，然后通过new出来的实例去调用内部的run方法。
+
+```java
+//启动类的main方法
+public static void main(String[] args) {
+    SpringApplication.run(DemoApplication.class, args);
+}
+
+//启动类调的run方法
+public static ConfigurableApplicationContext run(Class<?> primarySource, String... args) {
+    //调的是下面的，参数是数组的run方法
+    return run(new Class<?>[] { primarySource }, args);
+}
+
+//和上面的方法区别在于第一个参数是一个数组
+public static ConfigurableApplicationContext run(Class<?>[] primarySources, String[] args) {
+    //实际上new一个SpringApplication实例，调的是一个实例方法run()
+    return new SpringApplication(primarySources).run(args);
+}
+```
+
+看下构造器干了些什么：
+
+```java
+public SpringApplication(ResourceLoader resourceLoader, Class<?>... primarySources) {
+    this.resourceLoader = resourceLoader;
+    //断言primarySources不能为null，如果为null，抛出异常提示
+    Assert.notNull(primarySources, "PrimarySources must not be null");
+    //启动类传入的Class
+    this.primarySources = new LinkedHashSet<>(Arrays.asList(primarySources));
+    //判断当前项目类型，有三种：NONE、SERVLET、REACTIVE
+    this.webApplicationType = WebApplicationType.deduceFromClasspath();
+    //设置ApplicationContextInitializer
+    setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer.class));
+    //设置监听器
+    setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
+    //判断主类，初始化入口类
+    this.mainApplicationClass = deduceMainApplicationClass();
+}
+
+//判断主类
+private Class<?> deduceMainApplicationClass() {
+    try {
+        StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
+        for (StackTraceElement stackTraceElement : stackTrace) {
+            if ("main".equals(stackTraceElement.getMethodName())) {
+                return Class.forName(stackTraceElement.getClassName());
+            }
+        }
+    }
+    catch (ClassNotFoundException ex) {
+        // Swallow and continue
+    }
+    return null;
+}
+``` 
+
+创建了SpringApplication实例之后，就完成了SpringApplication类的初始化工作，这个实例里包括监听器、初始化器，项目应用类型，启动类集合，类加载器。
+
+得到SpringApplication实例后，接下来就调用实例方法run()。继续看代码：
+
+```java
+public ConfigurableApplicationContext run(String... args) {
+    //创建计时器
+    StopWatch stopWatch = new StopWatch();
+    //开始计时
+    stopWatch.start();
+    //定义上下文对象
+    ConfigurableApplicationContext context = null;
+    Collection<SpringBootExceptionReporter> exceptionReporters = new ArrayList<>();
+    //Headless模式设置
+    configureHeadlessProperty();
+    //加载SpringApplicationRunListeners监听器
+    SpringApplicationRunListeners listeners = getRunListeners(args);
+    //发送ApplicationStartingEvent事件
+    listeners.starting();
+    try {
+        //封装ApplicationArguments对象
+        ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
+        //配置环境模块
+        ConfigurableEnvironment environment = prepareEnvironment(listeners, applicationArguments);
+        //根据环境信息配置要忽略的bean信息
+        configureIgnoreBeanInfo(environment);
+        //打印Banner标志
+        Banner printedBanner = printBanner(environment);
+        //创建ApplicationContext应用上下文
+        context = createApplicationContext();
+        //加载SpringBootExceptionReporter
+        exceptionReporters = getSpringFactoriesInstances(SpringBootExceptionReporter.class,
+                                                         new Class[] { ConfigurableApplicationContext.class }, context);
+        //ApplicationContext基本属性配置
+        prepareContext(context, environment, listeners, applicationArguments, printedBanner);
+        //刷新上下文
+        refreshContext(context);
+        //刷新后的操作，由子类去扩展
+        afterRefresh(context, applicationArguments);
+        //计时结束
+        stopWatch.stop();
+        //打印日志
+        if (this.logStartupInfo) {
+            new StartupInfoLogger(this.mainApplicationClass).logStarted(getApplicationLog(), stopWatch);
+        }
+        //发送ApplicationStartedEvent事件，标志spring容器已经刷新，此时所有的bean实例都已经加载完毕
+        listeners.started(context);
+        //查找容器中注册有CommandLineRunner或者ApplicationRunner的bean，遍历并执行run方法
+        callRunners(context, applicationArguments);
+    }
+    catch (Throwable ex) {
+        //发送ApplicationFailedEvent事件，标志SpringBoot启动失败
+        handleRunFailure(context, ex, exceptionReporters, listeners);
+        throw new IllegalStateException(ex);
+    }
+
+    try {
+        //发送ApplicationReadyEvent事件，标志SpringApplication已经正在运行，即已经成功启动，可以接收服务请求。
+        listeners.running(context);
+    }
+    catch (Throwable ex) {
+        //报告异常，但是不发送任何事件
+        handleRunFailure(context, ex, exceptionReporters, null);
+        throw new IllegalStateException(ex);
+    }
+    return context;
+}
+```
+
+run方法流程如图：
+
+![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220120185054.png)
+
+其实不需要特别细致，吧springboot启动流程内用到的解耦思路，以及编码过程中用到的设计模式学到手，那真是你的了。
+
+说一下我的理解，run方法是springboot启动的核心流程，一个服务要想启动需要具备很多东西，比如监听器、ioc容器的创建、tomcat容器的加载等，springboot通过观察者模式，以事件发布的形式通知，降低耦合，易于扩展，思考一个问题，springboot是如何实现事件发布进行一系列动作的？
+
+参考连接：https://juejin.cn/post/6895341123816914958#heading-8
+
+## springboot如何实现事件发布的
+
+
+
+## beanfacroty和applicationContext区别

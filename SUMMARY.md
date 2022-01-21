@@ -1,6 +1,5 @@
 # Summary
 
-* [iamz](README.md)
 * java
     * 基础知识
         * [队列和栈](java/队列和栈.md)
