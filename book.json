@@ -8,6 +8,7 @@
         "-lunr", "-search","search-pro",
         "code",
         "hide-element",
+        "intopic-toc",
         "anchor-navigation-ex"
     ],
     "pluginsConfig": {
