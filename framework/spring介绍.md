@@ -465,6 +465,266 @@ run方法流程如图：
 
 ## springboot如何实现事件发布的
 
+springboot事件是通过监听器模式实现的，监听器并不是23中设计模式中的，它是基于观察者模式衍生的一种编码模式。
 
+既然监听器模式是这样实现，我觉得应该先从观察者模式说起，观察者模式顾名思义，观察目标某种现象，如果发生某些变化，观察者需要根据变化做点什么，最简单的生活例子，比如你过马路，红灯了就要等一等，绿灯了可以通过。观察者模式用于建立一种对象与对象之间的依赖关系，一个对象发生改变时将自动通知其他对象，其他对象将相应作出反应。在观察者模式中，发生改变的对象称为观察目标，而被通知的对象称为观察者，一个观察目标可以对应多个观察者，而且这些观察者之间可以没有任何相互联系，可以根据需要增加和删除观察者，使得系统更易于扩展，关于观察者模式的细节代码实现，可参考`csdn作者刘伟`关于观察者模式的例子，[链接](https://blog.csdn.net/LoveLion/article/details/7720232)
+
+这时如果回忆起或者刚了解观察者模式后，再来看监听器模式，该模式内有三个角色，事件、监听器、广播器，事件就是用来维护某个事件的状态，监听器用于针对事件做一些动作（个人理解就是观察者模式中的观察者角色），广播器是什么呢，一个事件可能需要多个监听器去分别完成所需的工作，那这些监听器可以放在广播器里面维护，当某个事件状态发生改变，触发这个广播器去广播通知所有监听器干该干的活就ok了。这里思考一个问题，既然一个事件可以使多个监听器有兴趣，那在执行时如果需要多个监听器顺序执行怎么办？还记得spring中的@Order注解或者Ordered接口吗，它就是用来干这个的，这样执行起来有点像责任链的意思了。
+
+废话不多讲，通过案例了解监听器的运行方式，我们以天气事件为例，在下雪时我们希望通知人们注意添衣，下雨时我们希望提醒人们带伞，show me the code：
+
+首先定义天气事件：
+
+```java
+/**
+ * 抽象天气事件
+ *
+ * @author pk.zhang
+ * @date 2022/1/25 14:22
+ */
+public abstract class WeatherEvent {
+
+    protected abstract String getWeather();
+}
+
+/**
+ * 下雪事件
+ *
+ * @author pk.zhang
+ * @date 2022/1/25 14:23
+ */
+public class SnowEvent extends WeatherEvent {
+
+    @Override
+    protected String getWeather() {
+        return "下雪了";
+    }
+}
+
+/**
+ * 下雨事件
+ *
+ * @author pk.zhang
+ * @date 2022/1/25 14:23
+ */
+public class RainEvent extends WeatherEvent {
+
+    @Override
+    protected String getWeather() {
+        return "下雨了";
+    }
+}
+```
+
+定义天气监听器：
+
+```java
+/**
+ * 天气监听器接口
+ *
+ * @author pk.zhang
+ * @date 2022/1/25 14:25
+ */
+public interface WeatherListener<E extends WeatherEvent> {
+
+    void onWeatherEvent(E event);
+}
+
+/**
+ * 下雪监听器
+ *
+ * @author pk.zhang
+ * @date 2022/1/25 14:27
+ */
+public class SnowListener implements WeatherListener {
+
+    @Override
+    public void onWeatherEvent(WeatherEvent event) {
+        if (event instanceof SnowEvent) {
+            event.getWeather();
+            System.out.println("今天下雪！请注意适当增加衣物，做好保暖措施。");
+        }
+    }
+}
+
+/**
+ * 下雨事件监听器
+ *
+ * @author pk.zhang
+ * @date 2022/1/25 14:38
+ */
+public class RainListener implements WeatherListener {
+
+    @Override
+    public void onWeatherEvent(WeatherEvent event) {
+        if (event instanceof RainEvent) {
+            event.getWeather();
+            System.out.println("今天下雨！请注意雨天路滑，准备好雨具设备。");
+        }
+    }
+}
+```
+
+这个事件监听器定义好了，需要通过广播器实现对应天气执行对应监听器逻辑：
+
+```java
+/**
+ * 实现天气事件的广播 典型的模板方法模式
+ *
+ * @author pk.zhang
+ * @date 2022/1/25 14:47
+ */
+public class WeatherEventMulticaster extends AbstractMulticaster {
+
+    @Override
+    void doStart() {
+        System.out.println("开始广播天气预报！");
+    }
+
+    @Override
+    void doEnd() {
+        System.out.println("广播结束！Over！");
+    }
+}
+
+/**
+ * 抽象类实现广播接口
+ *
+ * @author pk.zhang
+ * @date 2022/1/25 14:41
+ */
+public abstract class AbstractMulticaster implements EventMulticaster {
+
+    //存放监听器的集合，所有需要监听的事件都存在这里
+    private List<WeatherListener> listenerList = new ArrayList<>();
+
+    @Override
+    public void multicastEvent(WeatherEvent event) {
+        //采用模板方法，子类可以实现的doStart和doEnd，在调用监听器之前和之后分别作出扩展
+        //SpringBoot中有着大量相似的操作
+        //SpringBoot中的前置处理器和后置处理器，就是这样实现的
+        doStart();
+        listenerList.forEach(lt -> lt.onWeatherEvent(event));
+        doEnd();
+    }
+
+    @Override
+    public void addListener(WeatherListener weatherListener) {
+        listenerList.add(weatherListener);
+    }
+
+    @Override
+    public void removeListener(WeatherListener weatherListener) {
+        listenerList.remove(weatherListener);
+    }
+
+    abstract void doStart();
+
+    abstract void doEnd();
+}
+
+/**
+ * 实现天气事件的广播 典型的模板方法模式
+ *
+ * @author pk.zhang
+ * @date 2022/1/25 14:47
+ */
+public class WeatherEventMulticaster extends AbstractMulticaster {
+
+    @Override
+    void doStart() {
+        System.out.println("开始广播天气预报！");
+    }
+
+    @Override
+    void doEnd() {
+        System.out.println("广播结束！Over！");
+    }
+}
+```
+
+通过main方法执行一下：
+
+```java
+public static void main(String[] args) {
+        // 创建广播器
+        WeatherEventMulticaster weatherEventMulticaster = new WeatherEventMulticaster();
+        // 创建监听器
+        RainListener rainListener = new RainListener();
+        SnowListener snowListener = new SnowListener();
+        // 向广播器内添加监听器
+        weatherEventMulticaster.addListener(rainListener);
+        weatherEventMulticaster.addListener(snowListener);
+
+        // 创建事件
+        RainEvent rainEvent = new RainEvent();
+        SnowEvent snowEvent = new SnowEvent();
+
+        // 广播事件
+        weatherEventMulticaster.multicastEvent(rainEvent);
+        weatherEventMulticaster.multicastEvent(snowEvent);
+    }
+```
+
+控制台输出：
+
+```bash
+开始广播天气预报！
+今天下雨！请注意雨天路滑，准备好雨具设备。
+广播结束！Over！
+开始广播天气预报！
+今天下雪！请注意适当增加衣物，做好保暖措施。
+广播结束！Over！
+```
+
+springboot监听器实现大同小异，以上是硬编码方式调用的，在springboot中做了一些细节上的复杂操作，比如每次广播时，会首先找到对该事件感兴趣的监听器后再去遍历，而以上代码作为demo，只是暴力遍历所有监听器去完成动作。从以上可以看出，是广播器把事件推送给所有的监听器，每个监听器都对事件做出判断和处理。
+
+springboot监听器使用，从源码来看，是先注册后触发，注册流程通过实例化SpringApplication时完成，代码如下：
+
+```java
+public SpringApplication(ResourceLoader resourceLoader, Class<?>... primarySources) {
+		this.resourceLoader = resourceLoader;
+		Assert.notNull(primarySources, "PrimarySources must not be null");
+		this.primarySources = new LinkedHashSet<>(Arrays.asList(primarySources));
+		this.webApplicationType = WebApplicationType.deduceFromClasspath();
+       //这里是ApplicationContextInitializer接口注册
+		setInitializers((Collection) getSpringFactoriesInstances(
+				ApplicationContextInitializer.class));
+       //这里就是ApplicationListener注册的位置，可以看出主要区别就是查询的接口类不同
+       //setListeners是找到的对象存到容器中，存到一个list属性中，方便以后使用
+       //这个存放对象的list，对应的是小demo的AbstractEventMulticaster类中list，作用是一样一样的
+		setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
+		this.mainApplicationClass = deduceMainApplicationClass();
+}
+```
+
+实例化完`SpringApplication`之后，运行run方法，可以看到run方法内的listener的一些方法去实现事件广播，和上面的例子如出一辙，只不过spring支持同意监听器可以监听多个事件，这块在spring内部做了相对多的处理工作，不做赘述。
+
+有关详情可参考连接：[https://juejin.cn/post/6844904106847371271](https://juejin.cn/post/6844904106847371271)
 
 ## beanfacroty和applicationContext区别
+
+BeanFactory和ApplicationContext都是接口，并且ApplicationContext间接继承了BeanFactory。
+
+BeanFactory是Spring中最底层的接口，提供了最简单的容器的功能，只提供了实例化对象和获取对象的功能，而ApplicationContext是Spring的一个更高级的容器，提供了更多的有用的功能。  
+
+ApplicationContext提供的额外的功能：获取Bean的详细信息(如定义、类型)、国际化的功能、统一加载资源的功能、强大的事件机制、对Web应用的支持等等。
+
+加载方式的区别：BeanFactory采用的是延迟加载的形式来注入Bean；ApplicationContext则相反的，它是在Ioc启动时就一次性创建所有的Bean,好处是可以马上发现Spring配置文件中的错误，坏处是造成浪费。
+
+## springboot中的tomcat是如何运行的
+
+SpringBoot的启动是通过new SpringApplication()实例来启动的，启动过程主要做如下几件事情： > 1. 配置属性 > 2. 获取监听器，发布应用开始启动事件 > 3. 初始化输入参数 > 4. 配置环境，输出banner > 5. 创建上下文 > 6. 预处理上下文 > 7. 刷新上下文 > 8. 再刷新上下文 > 9. 发布应用已经启动事件 > 10. 发布应用启动完成事件
+
+而启动Tomcat就是在第7步中“刷新上下文”；Tomcat的启动主要是初始化2个核心组件，连接器(Connector)和容器（Container），一个Tomcat实例就是一个Server，一个Server包含多个Service，也就是多个应用程序，每个Service包含多个连接器（Connetor）和一个容器（Container),而容器下又有多个子容器，按照父子关系分别为：Engine,Host,Context,Wrapper，其中除了Engine外，其余的容器都是可以有多个。
+
+## @Autowried和@Resource区别
+
+1. @Autowried是spring框架内的注解，@Resource是jdk内自带的注解
+2. @Autowired默认按byType装配Bean，如果发现多个类型相同的Bean，再根据byName（属性字段名）装配Bean，如果找到了则装配成功，找不到则装配失败，所以说在一个接口多个实现类的bean，除了使用@Qualifier指定bean名称之外，也可以通过属性名定义要使用的具体的bean名称；@Resource默认按byName装配Bean，如果byName没有找到对应的Bean，再根据byType装配Bean，如果找到了则装配成功，找不到则装配失败。
+
+@Resource装配顺序
+1. 如果同时指定了name和type，则从Spring上下文中找到唯一匹配的bean进行装配，找不到则抛出异常
+2. 如果指定了name，则从上下文中查找名称（id）匹配的bean进行装配，找不到则抛出异常
+3. 如果指定了type，则从上下文中找到类型匹配的唯一bean进行装配，找不到或者找到多个，都会抛出异常
+4. 如果既没有指定name，又没有指定type，则自动按照byName方式进行装配；如果没有匹配，则回退为一个原始类型进行匹配，如果匹配则自动装配；

@@ -21,14 +21,16 @@
     * [实现ocr](python/利用python实现图片ocr.md)
 * 数据库
     * [redis](database/redis.md)
-    * [mysql]()
-    * [MongoDB]()
+    * [mysql](database/mysql.md)
+    * [elasticsearch]()
 * 框架
     * [spring](framework/spring介绍.md)
     * [springcloud]()
     * [dubbo](framework/dubbo_note.md)
 * 分布式
     * [cap理论](分布式/cap理论.md)
+    * [聊聊分布式事务](分布式/聊聊分布式事务.md)
+    * [zookeeper详谈](分布式/zookeeper.md)
 * 工具
   * [gitbook](tools/gitbook记录.md)
   * [vscode](tools/vscode使用.md)

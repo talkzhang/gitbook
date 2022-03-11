@@ -1,14 +1,13 @@
 {
-    "title": "干货笔记",
-    "description": "日常、笔记",
-    "author": "zhangpk",
+    "title": "大海会笑",
+    "description": "note",
+    "author": "mr.z",
     "plugins": [
         "expandable-chapters",
         "lightbox",
         "-lunr", "-search","search-pro",
         "code",
         "hide-element",
-        "intopic-toc",
         "anchor-navigation-ex"
     ],
     "pluginsConfig": {
