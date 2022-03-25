@@ -2,18 +2,23 @@
 
 想做什么？
 - spring基础  (spring-boot-starter-security)
+- jvm、
+- mysql
+- springboot
+- zookeeper
+
 - k8s、docker
-- jvm、arthas
+- arthas
 - java中的锁、syncronized、valiteld关键字、reentractlock
 - 消息队列
-- java线程池
-- mysql、sharding jdbc
-- springboot
+- java线程池、多线程
+- sharding jdbc
+- linux epoll原理（redis、ng等）
 - dubbo
 - springcloud feign、hystrix、sentel
 - springcloud gateway
 - springcloud sleuth
-- eureka、zookeeper
+- eureka、
 - elasticsearch
 - git
 - CI/CD

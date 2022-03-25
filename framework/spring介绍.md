@@ -728,3 +728,22 @@ SpringBoot的启动是通过new SpringApplication()实例来启动的，启动�
 2. 如果指定了name，则从上下文中查找名称（id）匹配的bean进行装配，找不到则抛出异常
 3. 如果指定了type，则从上下文中找到类型匹配的唯一bean进行装配，找不到或者找到多个，都会抛出异常
 4. 如果既没有指定name，又没有指定type，则自动按照byName方式进行装配；如果没有匹配，则回退为一个原始类型进行匹配，如果匹配则自动装配；
+
+# bean的作用域
+
+
+
+a、Singleton （缺省作用域、单例类型）
+在容器启动（实例化）时Bean就实例化和初始化，并且只实例化一次。
+
+b、Prototype （原型类型）
+容器启动时并没有实例化Bean，只有获取Bean时才会被创建，并且每一次都是新建一个对象。
+
+c、request（web的Spring ApplicationContext下）
+每个HTTP 都会有自己的Bean，当处理结束时，Bean销毁。
+
+d、session（web的Spring ApplicationContext下）
+每一个Http session有自己的Bean
+
+e、global session（web的Spring ApplicationContext下）
+global session作用域类似于标准的HTTP Session作用域，不过仅仅在基于portlet的web应用中才有意义。Portlet规范定义了全局Session的概念，它被所有构成某个portlet web应用的各种不同的portlet所共享。在global session作用域中定义的bean被限定于全局portlet Session的生命周期范围内，也不怎么用，随便说说就行。
