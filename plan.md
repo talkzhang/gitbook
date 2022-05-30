@@ -6,9 +6,10 @@
 - mysql
 - springboot
 - zookeeper
+- elasticsearch
+- arthas
 
 - k8s、docker
-- arthas
 - java中的锁、syncronized、valiteld关键字、reentractlock
 - 消息队列
 - java线程池、多线程
@@ -19,9 +20,11 @@
 - springcloud gateway
 - springcloud sleuth
 - eureka、
-- elasticsearch
+- oauth2思想、单点登录
+
 - git
 - CI/CD
+- http三次握手；
 
 - java基础 list、hashmap源码思想
 - - ruankao
@@ -36,7 +39,7 @@
 
 - 学下玩gp
 - 学下中医
-
+布隆过滤器是什么
 
 # now TODO
 

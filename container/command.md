@@ -17,3 +17,13 @@ kubectl cp default/mycentos-7b59b5b755-8rbgc:/root/from_pod.txt  /tmp/from_pod.n
 ## 查看容器列表
 
 kubectl get pods
+
+## k8s容器和主机互相拷贝
+
+1.kubectl cp /主机目录/文件路径 podName:/容器路径/xxx.datasource -n namespaces
+这样可以把主机目录文件拷贝到容器内
+
+2.kubectl cp podName:容器路径/xxx.datasource -n namespaces /主机目录
+这样可以把容器内文件cp到主机目录
+
+从容器拷贝文件到主机的时候podNname:这里不要加/ 之前加了/会一直报错
