@@ -61,7 +61,7 @@ spring.flyway.check-location=true
 
 为了更直观，目录结构如下图：
 
-![项目目录结构](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16122349286773.png)
+![项目目录结构](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16122349286773.png)
 
 下图中的sql脚本信息：
 
@@ -77,17 +77,17 @@ CREATE TABLE `test_edu_student` (
 
 现在问题是在第一次使用时，数据库还不存在`flyway_schema_history`这张表，在使用如上配置之后，只是初始化创建了一条数据，但是并没有执行指定目录下的SQL，有一条默认数据，只有把它删掉之后再重启服务才会继续执行我的脚本，如果不删这条数据，而重启服务的话，在控制台输入如下：
 
-![控制台异常输出](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16122372654554.png)
+![控制台异常输出](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16122372654554.png)
 
 贴一下数据库默认的这条数据：
 
-![数据库默认数据](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16122366361509.png)
+![数据库默认数据](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16122366361509.png)
 
 只有删掉这条数据之后，在重启服务才会执行我的脚本，不知道这是我的问题，还是flyway的设计本就如此。
 
-![成功执行数据](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16122370184208.png)
+![成功执行数据](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16122370184208.png)
 
-![成功执行控制台](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16122374662292.png)
+![成功执行控制台](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16122374662292.png)
 
 
 ---

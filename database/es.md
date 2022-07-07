@@ -106,7 +106,7 @@ quorum是有计算公式的，公式是（（主分片数量+副本分片设置�
 
 ## es写入深入详解
 
-![es写入流程原理](https://gitee.com/hongqigg/imgs-bed/raw/master/image/es%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B.png)
+![es写入流程原理](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/es%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B.png)
 
 1. 当es写入一个文档时，首先客户端随机访问一个节点作为协调节点，通过路由规则将该请求转发至需要执行的primary shrad，这时这条文档数据是在jvm内存中（因为es是java编写的，刚进来的文档肯定先在jvm内存中），也就是iindex buffer，同时也会写入translog到内存中，translog默认每5秒追加到磁盘一次，将数据放入index buffer和translog之后，会通知相关的副本分片也去执行该流程，执行完成之后返回客户端成功。
 2. refresh：文档挡在jvm内存中是无法完成搜索的，同时也不能立刻写入磁盘，因为如果写入频繁的话，无形中增加了磁盘的io操作，会非常影响性能，为此，es通过利用系统缓冲，也就是filesystem cache用于暂存index buffer内生成的segment file，index buffer默认每隔一秒（或者index buffer内存占比超过设置上限，默认jvm堆内存10%）就会将生成的segment file refresh到filesystem cache中，此时的文档数据虽然没有到磁盘，但是已经可以被搜索到了，所以说es的搜索数据并不是实时，而是近实时的；
@@ -174,7 +174,7 @@ ok，以上是es内倒排索引名词解释，为了提高查询速度，这个t
 
 放张网图清晰理解存储及搜索的过程：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220506172318.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220506172318.png)
 
 以上是针对倒排索引的文本存储优化压缩的介绍，下面说说postings list的压缩
 
@@ -186,7 +186,7 @@ ok，以上是es内倒排索引名词解释，为了提高查询速度，这个t
 
 Frame of Reference 简称for压缩技术，可以想象如果文档id的一堆数字，都按原数字存储的话相对来说比较消耗内存，for呢是通过一个增量编码后存储的方式来进行的，比如一个数组1，2，3，那么底层存储就是1，1，1，每个数字都是和前一位的差值，第一位的话默认前一位是0；当然这只是第一步，第二步就是posting list也是按block存储的，每个block内存储256个数字，并且每个block内的所有数字是按位来进行存储的，这样就把整型数字从8，16，32，64位变成1-64位灵活存储，更高效的利用存储空间。放一张网图来更清晰的理解压缩过程。
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220506172208.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220506172208.png)
 
 ### roaring bitmaps（针对filer cache）
 
@@ -198,13 +198,13 @@ Frame of Reference 简称for压缩技术，可以想象如果文档id的一堆�
 
 首先先说在内存中啊，posting list是个整型的数组，第一个压缩的思路就是用位的方式来表示，每个文档对应其中的一位，也就是我们常说的位图，bitmap，bitmap怎么存的呢，如下图：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220506181803.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220506181803.png)
 
 通过0和1存储，便于es这种数据库通过位运算进行and或者or的操作。
 
 但是，位图有个很明显的缺点，不管业务中实际的元素基数有多少，它占用的内存空间都恒定不变。也就是说不适用于稀疏存储。业内对于稀疏位图也有很多成熟的压缩方案，lucene 采用的就是roaring bitmaps。
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220506182002.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220506182002.png)
 
 将 doc id 拆成高 16 位，低 16 位。65536是16位的分界值，那么处理的时候就快要将值先%65536，得到的值就是低16位，如果做除运算就是得到高16位，同时按65536位单位进行了按block块来进行存储。
 
@@ -218,7 +218,7 @@ Frame of Reference 简称for压缩技术，可以想象如果文档id的一堆�
 
 如果查询的 filter 没有缓存，那么就用 skip list 的方式去遍历磁盘上的 postings list。
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220506183231.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220506183231.png)
 
 以上是三个 posting list。我们现在需要把它们用 AND 的关系合并，得出 posting list 的交集。首先选择最短的 posting list，逐个在另外两个 posting list 中查找看是否存在，最后得到交集的结果。遍历的过程可以跳过一些元素，比如我们遍历到绿色的 13 的时候，就可以跳过蓝色的 3 了，因为 3 比 13 要小。
 

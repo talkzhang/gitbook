@@ -26,7 +26,7 @@
 
 搞了半天，终于知道这种类型的文件是干什么用，最重要的是知道它叫什么名字了，接下来相对就简单了，顺着往下找，发现java语言操作SpreadsheetML类型的文件，有专门操作工具类，名为Xelem的库可以处理它，但是，如果你的java项目是使用maven仓库来管理依赖，是没有指定依赖库在maven维护的。
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16100861032214.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16100861032214.png)
 
 不过这都不是什么问题，可以找到官网，官网有依赖下载的，不过可能下载没有那么快。
 

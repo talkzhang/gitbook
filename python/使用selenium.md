@@ -11,7 +11,7 @@ selenium 是一个web应用测试工具，能够真正的模拟人去操作浏�
 
 注意chromedriver和chrome浏览器的版本需要对应，例如：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/chromevier-version.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/chromevier-version.png)
 
 如果chrome版本是91.0.4472的版本，可以直接通过网盘下载驱动：
 
@@ -35,7 +35,7 @@ browser.get("https://www.google.com")
 
 获取搜索框Xpath：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/find_element.gif)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/find_element.gif)
 
 获取到该Xpath，编码：
 
@@ -63,7 +63,7 @@ if __name__ == '__main__':
 
 看下效果：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/running.gif)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/running.gif)
 
 一个简单的流程大致如此，除了通过Xpath，还可以通过id、class来获取页面元素，很简答，不做赘述，自行搜索即可。
 

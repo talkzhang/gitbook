@@ -11,8 +11,10 @@
 
 - k8s、docker
 - java中的锁、syncronized、valiteld关键字、reentractlock
-- 消息队列
 - java线程池、多线程
+- java基础 list、hashmap源码思想
+
+- 消息队列
 - sharding jdbc
 - linux epoll原理（redis、ng等）
 - dubbo
@@ -26,7 +28,7 @@
 - CI/CD
 - http三次握手；
 
-- java基础 list、hashmap源码思想
+
 - - ruankao
 - netty框架原理
 - 网络爬虫学习

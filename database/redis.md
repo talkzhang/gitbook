@@ -59,7 +59,7 @@ RPUSH list "C" "D" "E"
 
 在整个AOF后台重写过程中，只有信号处理函数执行时会对服务器造成阻塞
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20210628105601.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20210628105601.png)
 
 # redis为什么快
 
@@ -75,17 +75,17 @@ io多路复用是非阻塞io，什么意思呢，举例比如说一个餐厅一�
 
 同时redis自己集成了一套事件驱动，将需要做的事抽象为事件，处理完成后返回给客户端同时解除绑定的连接。
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220517113250.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220517113250.png)
 
 redis6.0之后支持了多线程模式，虽然是多线程，但也不是说设置越多越好，毕竟有上下文切换的开销，Redis的多线程模型，不是传统意义上的多线程并发，而是把socket解析回写的这部分操作并行化，以解决IO上的时间消耗带来的系统瓶颈。
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220517113410.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220517113410.png)
 
 ## 3、redis底层数据结构的优化
 
 redis针对客户端连接支持5种数据格式，但这里说的数据结构优化不是说这个，这5种数据格式在底层有redis优化的数据结构的支撑，分别有sds动态字符串、双端列表、ziplist压缩列表、hash表、整型数组、skiplist列表。
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220516164709.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220516164709.png)
 
 比如sds动态字符串，是在c支持的字符串上进行了优化，该字符串维护了字符串长度，因为c默认字符串是以**\0**，且在获取字符串长度是遍历整理字符串来获取的，有了字符串长度直接就可以获取到；同时动态字符串在空间分配上支持了预分配，大概意思就是有个字段用来存储每个字符串空闲的空间，当然空闲空间分配里面有它的规则，这样做的好处就是比如当字符串长度缩短，不需要在重新分配空间了，而是把缩短后减少的空间记录起来，等有类似append操作时优先使用多出记录的空闲空间即可，这样做减少了空间的分配。
 

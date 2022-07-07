@@ -34,13 +34,13 @@ dump文件搞定了，接下来是如何分析呢？如何通过工具或者别�
 
 jdk中有自带jhat工具来对文件进行在线分析，通过`jhat xxx.dump/hprof`，之后，本地访问`http://localhost:7000`，即可在浏览器看到访问效果，如图：
 
-![通过jhat启动查看dump](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103487331830.png)
+![通过jhat启动查看dump](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103487331830.png)
 
-![jhat页面1](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103490572886.png)
+![jhat页面1](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103490572886.png)
 
-![jhat页面2](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1610349010325.png)
+![jhat页面2](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1610349010325.png)
 
-![jhat页面3](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103492726863.png)
+![jhat页面3](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103492726863.png)
 
 页面大致是长这个样子，重点查看 Other Queries目录下的SHow heap histogram，可以比较容易观察到对象的引用次数及占用内存的大小。
 
@@ -52,7 +52,7 @@ jdk的另一个工具，visualvm也可以对dump文件进行可视化分析，�
 
 找到所在操作系统内的`$JAVA_HOME/bin/jvisualvm.exe`，双击即可启动，启动后左上角`文件->装入`，选择指定的要分析的文件即可。
 
-![jvisualvm界面图](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103500291910.png)
+![jvisualvm界面图](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103500291910.png)
 
 综合来看还是使用jvisualvm来进行dump文件的查询分析更直观、更利于定位问题。
 
@@ -75,9 +75,9 @@ public class Test {
 
 编写如上代码，且设置一下jvm启动参数：`-Xmx20m -Xms20m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./`，在IDEA内设置参数非常方便：
 
-![IDEA设置jvm启动参数](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103505327086.png)
+![IDEA设置jvm启动参数](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103505327086.png)
 
-![IDEA设置jvm启动参数](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103507065766.png)
+![IDEA设置jvm启动参数](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103507065766.png)
 
 这里需要注意，在测试时，不要设置-Xms太小，如果太小会在启动时报错：
 ```
@@ -87,21 +87,21 @@ GC triggered before VM initialization comA1eted. Try increasing NewSize, current
 
 设置完之后启动main方法，在发生oom之后会自动导出dump文件到当前目录下。
 
-![oom控制台信息](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1610351281678.png)
+![oom控制台信息](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1610351281678.png)
 
-![oom文件](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103514014791.png)
+![oom文件](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103514014791.png)
 
 将这个文件通过分析工具来定位查看信息，通过[概要]项可以定位哪个该线程触发了错误信息，且户定位到代码行。
 
-![jvva visual VM page 1](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1610351484622.png)
+![jvva visual VM page 1](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1610351484622.png)
 
 通过[类]项可以更清晰的看到对象引用记录。
 
-![jvva visual VM page 2](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103516355191.png)
+![jvva visual VM page 2](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103516355191.png)
 
 可以看到引用最多的是char数组，其实就是string，因为string的底层结构就是char[]，双击char[]进去之后，可以详细看到究竟是谁在引用它。
 
-![jvva visual VM page 3](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103519112087.png)
+![jvva visual VM page 3](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16103519112087.png)
 
 可以看到，引用该类实例的是ArrayList持续装载，且可以定位到具体文本内容。
 

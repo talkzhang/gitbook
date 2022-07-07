@@ -26,7 +26,7 @@
 
 ## dubbo架构
 
-![dubbo架构图](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20210621163610.png)
+![dubbo架构图](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20210621163610.png)
 
 | 节点     | 角色说明                               |
 | -------- | -------------------------------------- |
@@ -44,7 +44,7 @@
 
 在集群调用失败时，Dubbo 提供了多种容错方案，缺省为`failover`重试。
 
-![dubbo invoke过程](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20210629114121.png)
+![dubbo invoke过程](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20210629114121.png)
 
 - 这里的 Invoker 是 Provider 的一个可调用 Service 的抽象，Invoker 封装了 Provider 地址及 Service 接口信息
 - Directory 代表多个 Invoker，可以把它看成 List<Invoker> ，但与 List 不同的是，它的值可能是动态变化的，比如注册中心推送变更

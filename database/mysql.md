@@ -130,7 +130,7 @@ select ... lock in share mode.
 
 再说b+树之前，先说下什么是b树，b的结构相对二叉树来讲，它最大特点就是每个节点可以存储多个元素，并且通过定义阶这个概念，可以拥有两个以上的子节点，当然b树有它详细的添加元素和删除元素的规则，这里不用赘述，使用b树可以大大降低树的高度，因为它可以多个元素，多个节点嘛。所以还是非常适合数据库这种与磁盘打交道的场景的，b树存储结构如图所示：
 
-![b树存储结构](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220309164414.png)
+![b树存储结构](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220309164414.png)
 
 b树可以用于菲关系型数据库，比如mongodb。
 
@@ -144,7 +144,7 @@ b树可以用于菲关系型数据库，比如mongodb。
 
 b+树存储结构图：
 
-![b+树存储结构](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220310114239.png)
+![b+树存储结构](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220310114239.png)
 
 参考连接：https://www.cnblogs.com/lianzhilei/p/11250589.html
 

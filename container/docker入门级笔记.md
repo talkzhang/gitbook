@@ -70,3 +70,17 @@ docker build -t soar/centos:7.1 .  通过当前目录下的Dockerfile创建一�
 docker run -d -p 2222:22 --name test soar/centos:7.1 以镜像soar/centos:7.1创建名为test的容器，并以后台模式运行，并做端口映射到宿主机2222端口，P参数重启容器宿主机端口会发生改变
 docker run -i -t 容器 /bin/bash -c 'while true; do echo hello world; sleep 1; done' 运行容器 并且使用终端进行连接
 ```
+
+# ADD和COPY的区别
+
+都有复制的功能，ADD不同的是如果是一个压缩文件会自动把压缩文件给解压缩，COPY不会。为什么这里ADD和COPY是大写，因为在Dockerfile内必须是大写表名一个docker命令。
+
+# Dockerfile编写时应该注意什么
+
+Dockerfile 的指令每执行一次都会在 docker 上新建一层。所以过多无意义的层，会造成镜像膨胀过大。比如RUN指令后面如果是shell的话可以考虑将多个shell合并成一个RUN指令下。
+
+# docker run过程中遇到过什么问题
+
+有的镜像run命令执行之后自动停止，原因是因为docker容器内要求有一个前台进程在运行它才会处于run状态，比如搭建zookeeper时，zk内的zkServer.sh启动命令是nohub，当这种情况下docker镜像run完之后自动就会停止，因为这是一个纯后台命令，将nohub删掉之后搞定。
+
+本地单机zk镜像可参考[https://hub.docker.com/r/ityouknow/zookeeper3.4.6](https://hub.docker.com/r/ityouknow/zookeeper3.4.6)，本地启动服务完全够用了，如果要集群需要2次改装，修改myid等信息，创建docker network，之后commit修改的内容生成新的镜像即可。

@@ -4,17 +4,17 @@
 
 例如有excel表内原始数据（在sheet1内）如下：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16105907874158.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16105907874158.png)
 
 由于某些情况，你将某些发生异常的订单给拉了出来，但是你只知道订单号，这个金额由于特殊原因无法获取，于是把这些异常的订单，新建了sheet2来进行记录，如下：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16105910278239.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16105910278239.png)
 
 现在需要知道每条订单对应的金额应该是多少，可以使用vlookup函数来进行解决。
 
 在sheet2页内B1列新建一列[金额]，将鼠标放在B2，选择`公式-插入函数-选择vlookup`：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1610591251907.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1610591251907.png)
 
 解释一下要填写的几个值的描述：
 
@@ -27,11 +27,11 @@
 
 具体设置如下：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16105918782352.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16105918782352.png)
 
 填充后效果如下，姓名列也是按相同的方式进行了设置，
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16105930221551.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16105930221551.png)
 
 ## 如何实现快速下拉
 
@@ -43,11 +43,11 @@
 
 可以使用数据透视表，在excel内`插入-数据透视表`，对话框中选中数据区域，
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1610593390592.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1610593390592.png)
 
 求和值设置`金额`列，行标签设置为`用户姓名`即可搞定。
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16105934885814.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16105934885814.png)
 
 如上，搞定，后续有别的需要再来记录。
 

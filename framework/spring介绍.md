@@ -42,7 +42,7 @@ spring aop是通过代理模式实现的，代理模式分为动态代理和静�
 
 静态代理是一种冗余的实现方式，它的特点就是在`程序编译期就已经确认谁去代理谁了`，
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20210909113018.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20210909113018.png)
 
 举例说明：
 
@@ -131,7 +131,7 @@ publicclass Client {
 
 执行流程图如下：
 
-![springMVC执行流程图](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20210910140851.png)
+![springMVC执行流程图](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20210910140851.png)
 
 1. 前置分发器 DispatcherServlet 接收到 HTTP 请求之后，将查找适当的控制器 Controller 来处理请求，它通过解析 HTTP 请求的 URL 获得 URI，再根据该 URI 从处理器映射 HandlerMapping 当中获得该请求对应的处理器 Handler 和处理器拦截器 HandlerInterceptor，最后以 HandlerExecutionChain 形式返回。
 2. 前置分发器 DispatcherServlet 根据获得的处理器 Handler 选择合适的适配器 HandlerAdapter。如果成功获得适配器 HandlerAdapter，在调用处理器 Handler 之前其拦截器的方法 preHandler() 优先执行。
@@ -219,7 +219,7 @@ public class DemoApplication {
 
 如图：
 
-![springboot启动简图](https://gitee.com/hongqigg/imgs-bed/raw/master/image/springboot%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E7%AE%80%E5%9B%BE.png)
+![springboot启动简图](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/springboot%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E7%AE%80%E5%9B%BE.png)
 
 ### @SpringBootApplication注解
 
@@ -305,7 +305,7 @@ public String[] selectImports(AnnotationMetadata annotationMetadata) {
 
 该方法主要是从`spring.factories`文件获取spring配置类信息，根据这些配置类加载所需要加载的bean实例，按如上代码，会最终找到如下配置：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220120182320.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220120182320.png)
 
 现在终于明白，为什么springboot官方starter和自定义starter的区别了，所谓官方，就是springboot通过@EnableAutoConfiguration默认加载的那些配置类，可以随便看一下，里面有redis等这些项目中常用的starter的配置类，都在这里配置后加载了，而自定义starter，需要自己写一个`spring.factories`文件，并在该文件中声明配置类路径即可完成自动配置。
 
@@ -455,7 +455,7 @@ public ConfigurableApplicationContext run(String... args) {
 
 run方法流程如图：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20220120185054.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20220120185054.png)
 
 其实不需要特别细致，吧springboot启动流程内用到的解耦思路，以及编码过程中用到的设计模式学到手，那真是你的了。
 

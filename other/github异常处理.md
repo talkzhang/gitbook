@@ -6,20 +6,20 @@
 
 Settings:
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20210907181432.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20210907181432.png)
 
 Developer Settings:
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20210907181632.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20210907181632.png)
 
 Personal access tokens:
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20210907184518.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20210907184518.png)
 
 生成一个token，并确保复制即可。
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20210907184613.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20210907184613.png)
 
 将生成的token填写至该位置：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20210907184925.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20210907184925.png)
 
 原文链接：[https://ginnyfahs.medium.com/github-error-authentication-failed-from-command-line-3a545bfd0ca8](https://ginnyfahs.medium.com/github-error-authentication-failed-from-command-line-3a545bfd0ca8)

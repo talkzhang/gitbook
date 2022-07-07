@@ -4,7 +4,7 @@
 
 2、下载支持中文的版本，地址：https://tesseract-ocr.github.io/tessdoc/Data-Files，选择繁体和简体中文如下：
 
-![](https://gitee.com/hongqigg/imgs-bed/raw/master/image/20210712134307.png)
+![](https://cdn.jsdelivr.net/gh/talkzhang/imgs-bed@master/image/20210712134307.png)
 
 选择之后将下载的文件放至Tesseract-OCR安装目录下的tessdata即可。
 
