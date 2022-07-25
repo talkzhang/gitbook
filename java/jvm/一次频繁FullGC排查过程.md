@@ -26,8 +26,14 @@
 
 生成后注意下路径问题，默认路径就是java进程的工作目录，该目录和代码`System.getProperty("user.dir")`应该是一致的（未测试过，根据现象推测）。
 
-生成文件后，将该文件发送到本地，同时采样已完成，避免频繁生成dump文件，将
+生成文件后，将该文件发送到本地，同时采样已完成，避免频繁生成dump文件，将刚才设置的临时参数取消掉：
 
+```bash
+#jinfo -flag -HeapDumpBeforeFullGC 1
 
+#jinfo -flag -HeapDumpAfterFullGC 1
+```
+
+这是拿到dump文件了，剩下的就是拿着这个文件去分析就完事了，至于怎么分析，可查看oom如何排查一文中关于dump文件分析的工具（[点我直达](https://talkzhang.gitbook.io/learndoc/java/jvm/outofmemory-ru-he-pai-cha)）。
 
 参考连接：https://blog.csdn.net/kevin_mails/article/details/103404883
